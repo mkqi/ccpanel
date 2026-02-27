@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Rocket, Server, ChevronDown, Globe, Gamepad2, Puzzle, AlertTriangle, ArrowRight, Minimize2, CheckCircle, Terminal, Cpu } from 'lucide-react';
+import { X, Rocket, Server, ChevronDown, Globe, Gamepad2, Puzzle, AlertTriangle, ArrowRight, Minimize2, CheckCircle, Terminal, Cpu, Map } from 'lucide-react';
 import { clsx } from 'clsx';
 import { instanceApi } from '../lib/api';
 
@@ -35,11 +35,27 @@ export default function AddInstanceModal({ isOpen, onClose, nodes }: AddInstance
     crossplay: true,
     server_type: 'vanilla',
     // World Modifiers
-    resource_rate: 1,
-    raid_rate: 1,
-    portal_items: true,
-    no_build_cost: false
+    preset: 'normal',
+    modifier_combat: 2,
+    modifier_deathpenalty: 3,
+    modifier_resources: 2,
+    modifier_raids: 3,
+    modifier_portals: 1,
+    show_advanced_modifiers: false
   });
+
+  const MODIFIER_DATA = {
+    combat: ['veryeasy', 'easy', 'normal', 'hard', 'veryhard'],
+    combatLabels: ['Very Easy', 'Easy', 'Normal', 'Hard', 'Nightmare'],
+    deathpenalty: ['casual', 'veryeasy', 'easy', 'normal', 'hard', 'hardcore'],
+    deathpenaltyLabels: ['Casual', 'Very Easy', 'Easy', 'Normal', 'Hard', 'Hardcore'],
+    resources: ['muchless', 'less', 'normal', 'more', 'muchmore', 'most'],
+    resourcesLabels: ['Much Less', 'Less', 'Normal', 'More', 'Much More', 'Most'],
+    raids: ['none', 'muchless', 'less', 'normal', 'more', 'muchmore'],
+    raidsLabels: ['None', 'Much Less', 'Less', 'Normal', 'More', 'Much More'],
+    portals: ['casual', 'normal', 'hard', 'veryhard'],
+    portalsLabels: ['Casual', 'Normal', 'No Boss Portals', 'No Portals']
+  };
 
   // Reset state when opening
   useEffect(() => {
@@ -60,6 +76,40 @@ export default function AddInstanceModal({ isOpen, onClose, nodes }: AddInstance
     setIsDeploying(true);
     setLogs(['[INFO] Preparing deployment...']);
 
+    // Construct Environment Variables payload based on user selections
+    const extraEnv: Record<string, string> = {
+      SERVER_PUBLIC: formData.visibility === 'public' ? 'true' : 'false',
+      CROSSPLAY: formData.crossplay ? 'true' : 'false',
+    };
+
+    const serverArgs = [];
+    if (formData.preset !== 'normal') serverArgs.push(`-preset ${formData.preset}`);
+
+    const combatVal = MODIFIER_DATA.combat[formData.modifier_combat];
+    if (combatVal !== 'normal') serverArgs.push(`-modifier combat ${combatVal}`);
+
+    const deathVal = MODIFIER_DATA.deathpenalty[formData.modifier_deathpenalty];
+    if (deathVal !== 'normal') serverArgs.push(`-modifier DeathPenalty ${deathVal}`);
+
+    const resVal = MODIFIER_DATA.resources[formData.modifier_resources];
+    if (resVal !== 'normal') serverArgs.push(`-modifier Resources ${resVal}`);
+
+    const raidVal = MODIFIER_DATA.raids[formData.modifier_raids];
+    if (raidVal !== 'normal') serverArgs.push(`-modifier raids ${raidVal}`);
+
+    const portalVal = MODIFIER_DATA.portals[formData.modifier_portals];
+    if (portalVal !== 'normal') serverArgs.push(`-modifier portals ${portalVal}`);
+
+    if (serverArgs.length > 0) {
+      extraEnv.SERVER_ARGS = serverArgs.join(' ');
+    }
+
+    if (formData.server_type === 'plus') {
+      extraEnv.VALHEIM_PLUS = 'true';
+    } else if (formData.server_type === 'bepinex') {
+      extraEnv.BEPINEX = 'true';
+    }
+
     try {
       await instanceApi.create({
         name: formData.name,
@@ -68,11 +118,12 @@ export default function AddInstanceModal({ isOpen, onClose, nodes }: AddInstance
         node_id: formData.node_id,
         image: 'lloesche/valheim-server:latest',
         rcon_password: formData.password + 'rcon', // Autogenerate RCON pass based on game pass
+        extra_env: extraEnv,
       });
 
       // Simulate UI progress for aesthetics since backend runs async via gRPC
       const steps = [
-        { p: 10, msg: '[INFO] Requested Backend API...' },
+        { p: 10, msg: '[INFO] Requested Backend API with Advanced Mods...' },
         { p: 35, msg: '[INFO] Dispatching gRPC command to Agent...' },
         { p: 60, msg: '[INFO] Instructing Docker to pull image and create...' },
         { p: 100, msg: '[SUCCESS] Instance queued! View dashboard for sync.' }
@@ -143,10 +194,10 @@ export default function AddInstanceModal({ isOpen, onClose, nodes }: AddInstance
                   {/* Active Progress Bar */}
                   <div
                     className="absolute top-1/2 left-0 h-0.5 bg-viking-gold -translate-y-1/2 z-0 transition-all duration-300"
-                    style={{ width: step === 1 ? '0%' : step === 2 ? '50%' : '100%' }}
+                    style={{ width: step === 1 ? '0%' : '100%' }}
                   ></div>
 
-                  {[1, 2, 3].map((s) => (
+                  {[1, 2].map((s) => (
                     <div key={s} className="relative z-10 flex flex-col items-center gap-2">
                       <div className={clsx(
                         "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300",
@@ -160,7 +211,7 @@ export default function AddInstanceModal({ isOpen, onClose, nodes }: AddInstance
                         "text-[10px] font-bold uppercase tracking-wider transition-colors duration-300",
                         step >= s ? 'text-viking-gold' : 'text-gray-600'
                       )}>
-                        {s === 1 ? 'Basic Info' : s === 2 ? 'Config' : 'World Modifiers'}
+                        {s === 1 ? 'Basic Server Info' : 'Config & Worlds'}
                       </span>
                     </div>
                   ))}
@@ -302,142 +353,135 @@ export default function AddInstanceModal({ isOpen, onClose, nodes }: AddInstance
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                        <div className="flex gap-4">
-                          <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400 h-fit">
-                            <Globe className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-bold text-white">Public Server</p>
-                            <p className="text-xs text-gray-500 mt-0.5">List this server on the community browser</p>
-                          </div>
+                      <div className="space-y-3">
+                        <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">World Preset</label>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                          {[
+                            { id: 'normal', name: 'Normal' },
+                            { id: 'easy', name: 'Easy' },
+                            { id: 'hard', name: 'Hard' },
+                            { id: 'hardcore', name: 'Hardcore' },
+                            { id: 'casual', name: 'Casual' },
+                            { id: 'hammer', name: 'Hammer' },
+                            { id: 'immersive', name: 'Immersive' },
+                          ].map((preset) => (
+                            <button
+                              key={preset.id}
+                              onClick={() => setFormData({ ...formData, preset: preset.id })}
+                              className={clsx(
+                                "py-2 px-3 text-xs font-bold rounded-lg border transition-all truncate",
+                                formData.preset === preset.id
+                                  ? "bg-viking-gold/20 border-viking-gold text-viking-gold"
+                                  : "bg-white/5 border-white/10 text-gray-400 hover:border-white/20 hover:text-white"
+                              )}
+                            >
+                              {preset.name}
+                            </button>
+                          ))}
                         </div>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                          <input
-                            type="checkbox"
-                            className="sr-only peer"
-                            checked={formData.visibility === 'public'}
-                            onChange={(e) => setFormData({ ...formData, visibility: e.target.checked ? 'public' : 'private' })}
-                          />
-                          <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-viking-gold"></div>
-                        </label>
                       </div>
 
-                      <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                        <div className="flex gap-4">
-                          <div className="p-2 bg-green-500/10 rounded-lg text-green-400 h-fit">
-                            <Gamepad2 className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-bold text-white">Crossplay</p>
-                            <p className="text-xs text-gray-500 mt-0.5">Enable crossplay for Xbox/Gamepass players</p>
-                          </div>
-                        </div>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                          <input
-                            type="checkbox"
-                            className="sr-only peer"
-                            checked={formData.crossplay}
-                            onChange={(e) => setFormData({ ...formData, crossplay: e.target.checked })}
-                          />
-                          <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-viking-gold"></div>
-                        </label>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {step === 3 && (
-                    <motion.div
-                      key="step3"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      className="grid grid-cols-1 gap-6"
-                    >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Resource Rate (x{formData.resource_rate})</label>
-                          <div className="bg-midnight/50 border border-white/10 rounded-xl px-4 py-3">
-                            <input
-                              type="range"
-                              min="0.5"
-                              max="3"
-                              step="0.5"
-                              value={formData.resource_rate}
-                              onChange={(e) => setFormData({ ...formData, resource_rate: parseFloat(e.target.value) })}
-                              className="w-full accent-viking-gold"
-                            />
-                            <div className="flex justify-between text-[10px] text-gray-500 mt-1 font-mono">
-                              <span>0.5x</span>
-                              <span>1x</span>
-                              <span>2x</span>
-                              <span>3x</span>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
+                          <div className="flex gap-4">
+                            <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400 h-fit">
+                              <Globe className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <p className="text-sm font-bold text-white">Public Server</p>
+                              <p className="text-xs text-gray-500 mt-0.5">List this server on the community browser</p>
                             </div>
                           </div>
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Raid Rate (x{formData.raid_rate})</label>
-                          <div className="bg-midnight/50 border border-white/10 rounded-xl px-4 py-3">
+                          <label className="relative inline-flex items-center cursor-pointer">
                             <input
-                              type="range"
-                              min="0"
-                              max="3"
-                              step="0.5"
-                              value={formData.raid_rate}
-                              onChange={(e) => setFormData({ ...formData, raid_rate: parseFloat(e.target.value) })}
-                              className="w-full accent-viking-gold"
+                              type="checkbox"
+                              className="sr-only peer"
+                              checked={formData.visibility === 'public'}
+                              onChange={(e) => setFormData({ ...formData, visibility: e.target.checked ? 'public' : 'private' })}
                             />
-                            <div className="flex justify-between text-[10px] text-gray-500 mt-1 font-mono">
-                              <span>None</span>
-                              <span>1x</span>
-                              <span>2x</span>
-                              <span>3x</span>
+                            <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-viking-gold"></div>
+                          </label>
+                        </div>
+
+                        <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
+                          <div className="flex gap-4">
+                            <div className="p-2 bg-green-500/10 rounded-lg text-green-400 h-fit">
+                              <Gamepad2 className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <p className="text-sm font-bold text-white">Crossplay</p>
+                              <p className="text-xs text-gray-500 mt-0.5">Enable crossplay for Xbox/Gamepass players</p>
                             </div>
                           </div>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                              type="checkbox"
+                              className="sr-only peer"
+                              checked={formData.crossplay}
+                              onChange={(e) => setFormData({ ...formData, crossplay: e.target.checked })}
+                            />
+                            <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-viking-gold"></div>
+                          </label>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                        <div className="flex gap-4">
-                          <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400 h-fit">
-                            <Puzzle className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-bold text-white">Portal Items</p>
-                            <p className="text-xs text-gray-500 mt-0.5">Allow metals to be teleported through portals</p>
-                          </div>
+                      {/* Advanced Settings Toggle */}
+                      <div className="flex items-center justify-between p-4 rounded-xl bg-viking-gold/5 border border-viking-gold/20 hover:border-viking-gold/40 transition-colors mt-2">
+                        <div className="flex flex-col">
+                          <p className="text-sm font-bold text-viking-gold">Advanced World Modifiers</p>
+                          <p className="text-xs text-viking-gold/60 mt-0.5">Manually adjust combat, drops, penalties and portal limits</p>
                         </div>
                         <label className="relative inline-flex items-center cursor-pointer">
                           <input
                             type="checkbox"
                             className="sr-only peer"
-                            checked={formData.portal_items}
-                            onChange={(e) => setFormData({ ...formData, portal_items: e.target.checked })}
+                            checked={formData.show_advanced_modifiers}
+                            onChange={(e) => setFormData({ ...formData, show_advanced_modifiers: e.target.checked })}
                           />
                           <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-viking-gold"></div>
                         </label>
                       </div>
 
-                      <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                        <div className="flex gap-4">
-                          <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400 h-fit">
-                            <AlertTriangle className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-bold text-white">No Build Cost</p>
-                            <p className="text-xs text-gray-500 mt-0.5">Building structures requires no resources</p>
-                          </div>
-                        </div>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                          <input
-                            type="checkbox"
-                            className="sr-only peer"
-                            checked={formData.no_build_cost}
-                            onChange={(e) => setFormData({ ...formData, no_build_cost: e.target.checked })}
-                          />
-                          <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-viking-gold"></div>
-                        </label>
-                      </div>
+                      {/* Advanced Modifiers Reveal */}
+                      <AnimatePresence>
+                        {formData.show_advanced_modifiers && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-white/5">
+                              {[
+                                { label: 'Combat Difficulty', key: 'modifier_combat', max: 4, labels: MODIFIER_DATA.combatLabels },
+                                { label: 'Death Penalty', key: 'modifier_deathpenalty', max: 5, labels: MODIFIER_DATA.deathpenaltyLabels },
+                                { label: 'Resource Rate', key: 'modifier_resources', max: 5, labels: MODIFIER_DATA.resourcesLabels },
+                                { label: 'Raid Rate', key: 'modifier_raids', max: 5, labels: MODIFIER_DATA.raidsLabels },
+                                { label: 'Portal Restrictions', key: 'modifier_portals', max: 3, labels: MODIFIER_DATA.portalsLabels },
+                              ].map((slider) => (
+                                <div key={slider.key} className="space-y-2">
+                                  <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">{slider.label}</label>
+                                  <div className="bg-midnight/50 border border-white/10 rounded-xl px-4 py-3">
+                                    <input
+                                      type="range"
+                                      min="0"
+                                      max={slider.max}
+                                      value={(formData as any)[slider.key]}
+                                      onChange={(e) => setFormData({ ...formData, [slider.key]: parseInt(e.target.value) })}
+                                      className="w-full accent-viking-gold"
+                                    />
+                                    <div className="flex justify-between text-[10px] text-gray-500 mt-1 font-mono">
+                                      <span>{slider.labels[0]}</span>
+                                      <span className="text-viking-gold text-xs font-bold">{slider.labels[(formData as any)[slider.key]]}</span>
+                                      <span>{slider.labels[slider.max]}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -461,10 +505,10 @@ export default function AddInstanceModal({ isOpen, onClose, nodes }: AddInstance
                     </button>
                   )}
                   <button
-                    onClick={() => step < 3 ? setStep(step + 1) : handleDeploy()}
+                    onClick={() => step < 2 ? setStep(step + 1) : handleDeploy()}
                     className="bg-gradient-to-r from-viking-gold to-orange-600 hover:from-viking-gold-dim hover:to-orange-700 text-white px-8 py-2.5 rounded-lg text-sm font-bold shadow-lg shadow-orange-900/20 transition-all flex items-center gap-2 active:scale-95"
                   >
-                    {step === 3 ? 'Deploy Now' : 'Next Step'}
+                    {step === 2 ? 'Deploy Now' : 'Next Step'}
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
