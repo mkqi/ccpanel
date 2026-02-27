@@ -1,0 +1,7 @@
+nohup: ignoring input
+2026/02/26 16:51:59 [DB] SQLite initialized: ./ccpanel.db
+2026/02/26 16:51:59 [Cron] Scheduler started
+2026/02/26 16:51:59 [gRPC] Warning: failed to start gRPC on :9090: listen tcp :9090: bind: address already in use
+2026/02/26 16:51:59 [HTTP] CCPanel Backend starting on :8080
+2026/02/26 16:51:59 [HTTP] Admin: admin / admin
+2026/02/26 16:51:59 [FATAL] HTTP server failed:listen tcp :8080: bind: address already in use

@@ -190,3 +190,32 @@
 - [ ] Backend: 实现 Cron 定时备份调度器
 
 ---
+
+## 2026-02-27 — Instance Details Refresh Crash Fix & React Store Synchronization
+
+**对话时间**：2026-02-27 09:20 UTC
+
+### 讨论要点
+- 排查了前端 `InstanceHub` 和 `InstanceOverview` 在用户 F5 刷新后（或者通过 URL 直达时）发生 Uncaught TypeError (读取 undefined 的 charAt / replace 属性) 的白屏崩溃问题。
+- 定位到该崩溃来源于 Backend 每 5 秒推一次的 WebSocket `full_sync` 报文结构与 Frontend 期望的数据结构不匹配。
+- 指出 Zustand 的 `setInstances` 之前使用的是完全替换逻辑 (Override)，如果后台推来的 WS 不包含密码等静态元数据，React 就会发生运行时空指针。
+
+### 做出的决策
+
+| # | 决策 | 理由 |
+|---|------|------|
+| 1 | 增强 `monitor.go` WebSocket 载荷内容 | 将缺失的 `node_id`, `name`, `world_name`, `game_port`, `connect_address` 等从 SQLite 中 Select 出来并通过 WS 广播，确保第一时间包含核心字面量。 |
+| 2 | Zustand 采用 Merge（合并）而不只是 Replace | 改写 `useDataStore.setInstances`，遇到增量状态通过 ID 进行解构展开 (`...existing, ...newInst`)，保护 HTTP 初始请求拉来的厚数据（例如 passwords 和 env_vars）。 |
+| 3 | UI 加强容错处理 (Safe Fallbacks) | 在 React 组件中加入 `(instance.name \|\| 'Unknown Server').charAt(0)` 这种防御性编程，防止在极端时序下白屏崩溃。 |
+
+### 完成的工作
+- [x] 修改了 Backend `/internal/ws/monitor.go` 的 SQL Query，添加了超过 6 个缺失的属性列。
+- [x] 修改了 Frontend `dataStore.ts` 下的 `setInstances`，实现了基于 JavaScript `Map` 的 O(n) 高效安全对象合并。
+- [x] 更新了 `InstanceHub.tsx` 与 `InstanceOverview.tsx` 的容错渲染。
+- [x] 启动内置无头浏览器测试并进行了刷新验证，截取了稳定的最终渲染图证实修复。
+
+### 后续行动项 (从 UI 功能反推)
+- [ ] 创建 `003-advanced-features.md` 任务卡片，详细规划 RCON 控制台互动、在线玩家拉取、参数动态调整与单向备份归档。
+- [ ] 同步修改 `docs/prd.md`，将新发现的业务需求作为正式产品约束记录下来。
+
+---

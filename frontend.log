@@ -1,0 +1,324 @@
+
+> react-example@0.0.0 dev
+> vite --port=3000 --host=0.0.0.0
+
+
+  VITE v6.4.1  ready in 716 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://10.0.2.15:3000/
+  ➜  Network: http://172.31.0.32:3000/
+  ➜  Network: http://172.17.0.1:3000/
+  ➜  press h + enter to show help
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:13 PM [vite] http proxy error: /api/v1/nodes
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:13 PM [vite] http proxy error: /api/v1/instances
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:13 PM [vite] http proxy error: /api/v1/nodes
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:13 PM [vite] http proxy error: /api/v1/instances
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:13 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:14 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:16 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:18 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:22 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:28 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:36 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:47 PM [vite] http proxy error: /api/v1/nodes
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:47 PM [vite] http proxy error: /api/v1/instances
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:47 PM [vite] http proxy error: /api/v1/nodes
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:47 PM [vite] http proxy error: /api/v1/instances
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:47 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:55 PM [vite] http proxy error: /api/v1/instances
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:55 PM [vite] http proxy error: /api/v1/nodes
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:55 PM [vite] http proxy error: /api/v1/instances
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:55 PM [vite] http proxy error: /api/v1/nodes
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:55 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:56 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:34:58 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:35:01 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:35:05 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:35:10 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:35:18 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:35:30 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:35:33 PM [vite] http proxy error: /api/v1/nodes
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:35:33 PM [vite] http proxy error: /api/v1/instances
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:35:33 PM [vite] http proxy error: /api/v1/nodes
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+API Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:35:33 PM [vite] http proxy error: /api/v1/instances
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:35:47 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:36:13 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:36:43 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:37:14 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:37:44 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:38:14 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:38:45 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:39:15 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:39:45 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+WS Proxy Error: connect ECONNREFUSED 127.0.0.1:8080
+3:40:16 PM [vite] ws proxy error:
+Error: connect ECONNREFUSED 127.0.0.1:8080
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+4:19:23 PM [vite] (client) hmr update /src/pages/AuditLogs.tsx, /src/index.css
+4:21:28 PM [vite] (client) hmr update /src/index.css, /src/pages/InstanceHub.tsx, /src/App.tsx, /src/pages/Dashboard.tsx
+4:22:13 PM [vite] (client) hmr update /src/index.css, /src/pages/InstanceHub.tsx, /src/pages/Dashboard.tsx
+4:25:11 PM [vite] (client) hmr update /src/pages/NodeManagement.tsx, /src/index.css
+4:37:54 PM [vite] (client) hmr update /src/App.tsx, /src/index.css, /src/pages/Login.tsx, /src/components/Layout.tsx, /src/pages/InstanceHub.tsx, /src/pages/Console.tsx, /src/pages/Dashboard.tsx, /src/components/AddInstanceModal.tsx, /src/pages/AuditLogs.tsx
+4:38:49 PM [vite] (client) hmr update /src/pages/InstanceOverview.tsx, /src/index.css
+4:51:40 PM [vite] (client) hmr update /src/pages/InstanceOverview.tsx, /src/index.css
+4:56:16 PM [vite] (client) hmr update /src/pages/InstanceOverview.tsx, /src/index.css
+4:59:27 PM [vite] (client) hmr update /src/pages/InstanceOverview.tsx, /src/index.css
+4:59:39 PM [vite] (client) hmr update /src/pages/InstanceOverview.tsx, /src/index.css
+5:03:55 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+5:04:39 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+5:04:49 PM [vite] (client) hmr update /src/index.css, /src/pages/InstanceHub.tsx, /src/App.tsx, /src/pages/Dashboard.tsx, /src/pages/NodeManagement.tsx, /src/pages/InstanceOverview.tsx
+5:04:58 PM [vite] (client) hmr update /src/index.css, /src/pages/InstanceHub.tsx, /src/App.tsx, /src/pages/Dashboard.tsx, /src/pages/NodeManagement.tsx, /src/pages/InstanceOverview.tsx
+5:05:05 PM [vite] (client) hmr update /src/index.css, /src/pages/InstanceHub.tsx, /src/App.tsx, /src/pages/Dashboard.tsx, /src/pages/NodeManagement.tsx, /src/pages/InstanceOverview.tsx
+5:05:15 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+5:05:27 PM [vite] (client) hmr update /src/pages/Dashboard.tsx, /src/index.css
+5:05:35 PM [vite] (client) hmr update /src/pages/InstanceHub.tsx, /src/index.css
+5:05:35 PM [vite] Internal server error: /home/vagrant/ccpanel/ccpanel-web/src/pages/InstanceHub.tsx: 'return' outside of function. (15:2)
+
+  13 |
+  14 | if (isLoading && !instance) {
+> 15 |   return (
+     |   ^
+  16 |     <div className="flex flex-col items-center justify-center h-96 gap-4">
+  17 |       <Loader2 className="w-8 h-8 text-viking-gold animate-spin" />
+  18 |       <p className="text-gray-400 text-sm">Loading instance data...</p>
+  Plugin: vite:react-babel
+  File: /home/vagrant/ccpanel/ccpanel-web/src/pages/InstanceHub.tsx:15:2
+  13 |  
+  14 |  if (isLoading && !instance) {
+  15 |    return (
+     |    ^
+  16 |      <div className="flex flex-col items-center justify-center h-96 gap-4">
+  17 |        <Loader2 className="w-8 h-8 text-viking-gold animate-spin" />
+      at constructor (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:365:19)
+      at TypeScriptParserMixin.raise (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:6599:19)
+      at TypeScriptParserMixin.parseReturnStatement (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13136:12)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12798:21)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseStatementListItem (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12747:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13316:61)
+      at TypeScriptParserMixin.parseBlockBody (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13309:10)
+      at TypeScriptParserMixin.parseBlock (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13297:10)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12858:21)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseStatementOrSloppyAnnexBFunctionDeclaration (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12757:17)
+      at TypeScriptParserMixin.parseIfStatement (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13130:28)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12796:21)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseModuleItem (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12744:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13316:36)
+      at TypeScriptParserMixin.parseBlockBody (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13309:10)
+      at TypeScriptParserMixin.parseProgram (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12622:10)
+      at TypeScriptParserMixin.parseTopLevel (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12612:25)
+      at TypeScriptParserMixin.parse (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:14488:25)
+      at TypeScriptParserMixin.parse (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:10126:18)
+      at parse (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:14522:38)
+      at parser (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/parser/index.js:41:34)
+      at parser.next (<anonymous>)
+      at normalizeFile (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+      at normalizeFile.next (<anonymous>)
+      at run (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/transformation/index.js:22:50)
+      at run.next (<anonymous>)
+      at transform (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/transform.js:22:33)
+      at transform.next (<anonymous>)
+      at step (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:261:32)
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:223:11)
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:189:28
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/gensync-utils/async.js:67:7
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:113:33
+      at step (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:287:14)
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:223:11)
+5:05:35 PM [vite] Internal server error: /home/vagrant/ccpanel/ccpanel-web/src/pages/InstanceHub.tsx: 'return' outside of function. (15:2)
+
+  13 |
+  14 | if (isLoading && !instance) {
+> 15 |   return (
+     |   ^
+  16 |     <div className="flex flex-col items-center justify-center h-96 gap-4">
+  17 |       <Loader2 className="w-8 h-8 text-viking-gold animate-spin" />
+  18 |       <p className="text-gray-400 text-sm">Loading instance data...</p>
+  Plugin: vite:react-babel
+  File: /home/vagrant/ccpanel/ccpanel-web/src/pages/InstanceHub.tsx:15:2
+  13 |  
+  14 |  if (isLoading && !instance) {
+  15 |    return (
+     |    ^
+  16 |      <div className="flex flex-col items-center justify-center h-96 gap-4">
+  17 |        <Loader2 className="w-8 h-8 text-viking-gold animate-spin" />
+      at constructor (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:365:19)
+      at TypeScriptParserMixin.raise (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:6599:19)
+      at TypeScriptParserMixin.parseReturnStatement (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13136:12)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12798:21)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseStatementListItem (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12747:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13316:61)
+      at TypeScriptParserMixin.parseBlockBody (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13309:10)
+      at TypeScriptParserMixin.parseBlock (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13297:10)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12858:21)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseStatementOrSloppyAnnexBFunctionDeclaration (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12757:17)
+      at TypeScriptParserMixin.parseIfStatement (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13130:28)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12796:21)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseModuleItem (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12744:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13316:36)
+      at TypeScriptParserMixin.parseBlockBody (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13309:10)
+      at TypeScriptParserMixin.parseProgram (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12622:10)
+      at TypeScriptParserMixin.parseTopLevel (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12612:25)
+      at TypeScriptParserMixin.parse (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:14488:25)
+      at TypeScriptParserMixin.parse (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:10126:18)
+      at parse (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:14522:38)
+      at parser (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/parser/index.js:41:34)
+      at parser.next (<anonymous>)
+      at normalizeFile (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+      at normalizeFile.next (<anonymous>)
+      at run (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/transformation/index.js:22:50)
+      at run.next (<anonymous>)
+      at transform (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/transform.js:22:33)
+      at transform.next (<anonymous>)
+      at step (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:261:32)
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:223:11)
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:189:28
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/gensync-utils/async.js:67:7
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:113:33
+      at step (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:287:14)
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:223:11)
+5:05:56 PM [vite] (client) hmr update /src/pages/InstanceHub.tsx, /src/index.css
+5:12:19 PM [vite] (client) hmr update /src/pages/InstanceHub.tsx, /src/index.css
+5:12:48 PM [vite] (client) hmr update /src/pages/InstanceHub.tsx, /src/index.css
+9:04:08 AM [vite] (client) hmr update /src/pages/InstanceHub.tsx, /src/index.css
+9:11:40 AM [vite] (client) hmr update /src/pages/InstanceOverview.tsx, /src/index.css
+9:12:17 AM [vite] (client) hmr update /src/index.css, /src/pages/InstanceHub.tsx, /src/App.tsx, /src/pages/Dashboard.tsx, /src/pages/NodeManagement.tsx, /src/pages/InstanceOverview.tsx

@@ -1,0 +1,102 @@
+syntax = "proto3";
+package ccpanel;
+option go_package = "ccpanel/proto/gen/ccpanel";
+
+message NodeInfo {
+  string token   = 1;
+  string name    = 2;
+  string address = 3;
+  string status  = 4;
+  string os_info = 5;
+  string kernel_version = 6;
+  string docker_version = 7;
+  string hostname = 8;
+}
+
+message HeartbeatData {
+  string token     = 1;
+  double cpu_usage = 2;
+  double mem_usage = 3;
+  int64  disk_free = 4;
+  int64  disk_total= 5;
+  int64  uptime_secs = 6;
+}
+
+message InstanceConfig {
+  string instance_id  = 1;
+  string name         = 2;
+  string world_name   = 3;
+  string password     = 4;
+  string image        = 5;
+  int32  game_port    = 6;
+  int32  status_port  = 7;
+  int32  rcon_port    = 8;
+  string rcon_password= 9;
+}
+
+message BackendCommand {
+  enum CommandType {
+    CREATE  = 0;
+    START   = 1;
+    STOP    = 2;
+    RESTART = 3;
+    KILL    = 4;
+    DELETE  = 5;
+    RCON    = 6;
+    BACKUP  = 7;
+    RESTORE = 8;
+    STREAM_LOGS_START = 9;
+    STREAM_LOGS_STOP  = 10;
+  }
+  string command_id   = 1; // used for ack
+  CommandType command = 2;
+  InstanceConfig config = 3;
+  string payload      = 4; // for RCON command text or other data
+}
+
+message CommandAck {
+  string command_id = 1;
+  bool   success    = 2;
+  string error      = 3;
+  string result     = 4; // for RCON response or success details
+}
+
+message InstanceStats {
+  string instance_id    = 1;
+  string status         = 2; // running, exited, etc.
+  double cpu_percent    = 3;
+  int64  mem_bytes      = 4;
+  int64  uptime_secs    = 5;
+  string docker_status  = 6; // raw Docker status e.g. "Up 10 seconds"
+  int32  player_count   = 7;
+  int32  max_players    = 8;
+  string game_version   = 9;
+  string world_time     = 10;
+}
+
+message InstanceSyncData {
+  string token = 1;
+  repeated InstanceStats instances = 2;
+}
+
+message LogChunk {
+  string instance_id = 1;
+  string content     = 2;
+}
+
+message AgentMessage {
+  oneof payload {
+    NodeInfo          node_info  = 1;
+    HeartbeatData     heartbeat  = 2;
+    CommandAck        ack        = 3;
+    InstanceSyncData  sync       = 4;
+    LogChunk          log        = 5;
+  }
+}
+
+message Empty {}
+
+service AgentService {
+  // Bidirectional stream: Agent sends node info/heartbeats/acks, Backend sends commands
+  rpc ConnectStream(stream AgentMessage) returns (stream BackendCommand);
+}
