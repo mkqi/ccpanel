@@ -6,7 +6,7 @@ Unlock the full potential of the `lloesche/valheim-server-docker` image by creat
 ## 📋 Task Breakdown
 
 ### 1. The Environment Pipeline
-- **Frontend**: The `InstanceOverview.tsx` has a button titled `UPDATE INSTANCE CONFIG`. We must create a Slide-out Pane or settings grid where the admin can toggle Crossplay, adjust `MODIFIER_PRESET` (e.g. `hardcore`, `casual`), or change password/world name.
+- [x] **Frontend**: The `InstanceOverview.tsx` has a button titled `UPDATE INSTANCE CONFIG`. We must create a Slide-out Pane or settings grid where the admin can toggle Crossplay, adjust `MODIFIER_PRESET` (e.g. `hardcore`, `casual`), or change password/world name. Note: Creation modal uses exact `SERVER_ARGS` now.
 - **Backend API**: The `PUT /api/v1/instances/:id` route handler must receive these preferences, compress them into `json`, update SQLite `env_vars`, and immediately queue an `UPDATE` command to the Agent.
 - **Database Mod**: Confirm `env_vars` is properly parsing as a JSON dump on the `instances` table.
 

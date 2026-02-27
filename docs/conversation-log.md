@@ -1,3 +1,30 @@
+# Session Log: Environment Form Refinement & UX Precision
+**Date**: 2026-02-27
+
+## Objective
+Refine the "Deploy New Server Instance" Modal UI to accurately generate genuine Valheim command-line options (`SERVER_ARGS`) for Modifiers, Presets, and server rules, while ensuring a premium UI layout aligned with the panel's aesthetic.
+
+## Completed Work
+1. **Accurate Modifier Arguments**:
+   - Researched actual Valheim Modifier parameters (`combat`, `DeathPenalty`, `Resources`, `raids`, `portals`).
+   - Mapped UI selections precisely to game-recognized arguments (e.g. `-modifier combat hard`).
+   
+2. **UI Restructuring (Glassmorphism & UX Focus)**:
+   - Evaluated various UI approaches including a pixel-perfect "Wood Theme" native to Valheim, but rejected it in favor of maintaining the app's native Glassmorphism design system.
+   - Streamlined the Create Instance wizard from 3 steps down to 2 steps.
+   - Promoted `World Preset` buttons to the first-tier view of Step 2.
+   - Hidden advanced custom slider modifications behind an "Advanced World Modifiers" toggle, minimizing clutter for standard users.
+
+## Task Status Updates
+- **`tasks/003-advanced-features.md`**: Completed the **Frontend Environment Pipeline** step for formatting the payload accurately (`SERVER_ARGS` generation).
+
+## Next Steps for Next Session
+**Backend & Agent Dynamic Configuration Workflow** (The "Rebuilder" Pipeline)
+- Complete the API endpoint for `POST/PUT /api/v1/instances` to process these incoming exact arguments.
+- Connect SQLite `env_vars` loading and implement the `ccpanel.BackendCommand_UPDATE` action in the Go Agent, effectively allowing the Docker container to be safely torn down and spun up with new flags without breaking saves.
+
+---
+
 # Session Log: RCON Integration & UX Polish
 **Date**: 2026-02-27
 
