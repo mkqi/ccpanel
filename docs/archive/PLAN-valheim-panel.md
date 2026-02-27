@@ -346,14 +346,15 @@ ccpanel/
 
 ---
 
-## Phase 2 预览（本计划不实施）
+## Phase 2 预览（本计划不实施，记录于 002/003 任务中等待实施）
 
 | 功能 | 说明 |
 |------|------|
+| RCON Live Console 面板 | 将 `docker logs -f` 转换进后端 WebSocket 流；支持前端下发指令验证 |
+| 动态配置与实例参数编辑 | 点击“更新配置”后可修改世界名与 Modifier 倍率，并挂接重启容器 |
+| 颗粒度单实例云端备份 | Agent 对单实例的 `/config/worlds_local` 打包 `tar.gz`；前端触发和下载管理 |
+| 实时结构化在线玩家 | 利用 RCON `listplayers` 每分钟轮询推送到面板的 Active Players 列表 |
 | 多用户 RBAC | admin / operator / viewer 三种角色 |
-| 定时开关服 | 用户自定义 Cron 定时启停实例 |
-| 版本更新检测 | 对比 Docker Hub 最新 tag，通知 / 自动更新 |
-| 资源监控图表 | 近 24h CPU/Mem 折线图 |
 | Discord Webhook | 崩溃/启停通知 |
 | Mod 管理 | BepInEx / ValheimPlus 一键安装 |
 
