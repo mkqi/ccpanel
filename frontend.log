@@ -322,3 +322,5 @@ Error: connect ECONNREFUSED 127.0.0.1:8080
 9:04:08 AM [vite] (client) hmr update /src/pages/InstanceHub.tsx, /src/index.css
 9:11:40 AM [vite] (client) hmr update /src/pages/InstanceOverview.tsx, /src/index.css
 9:12:17 AM [vite] (client) hmr update /src/index.css, /src/pages/InstanceHub.tsx, /src/App.tsx, /src/pages/Dashboard.tsx, /src/pages/NodeManagement.tsx, /src/pages/InstanceOverview.tsx
+9:51:57 AM [vite] (client) page reload index.html
+9:52:39 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/index.css

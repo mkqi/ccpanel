@@ -36,7 +36,7 @@ export default function Layout() {
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
-          <span className="font-bold text-lg tracking-tight text-white hidden md:block">CCPanel</span>
+          <h1 className="font-bold text-lg tracking-tight text-white hidden md:block m-0 p-0 text-inherit leading-none">CCPanel</h1>
         </div>
 
         {/* Main Navigation */}
