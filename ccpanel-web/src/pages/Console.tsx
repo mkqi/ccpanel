@@ -69,17 +69,24 @@ export default function Console() {
     }
   }, [logs]);
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!command.trim()) return;
+    if (!command.trim() || !id) return;
 
-    setLogs(prev => [...prev, { type: 'CMD', time: new Date().toLocaleTimeString(), message: `> ${command}` }]);
+    const currentCmd = command.trim();
+    setLogs(prev => [...prev.slice(-999), { type: 'CMD', time: new Date().toLocaleTimeString(), message: `> ${currentCmd}` }]);
     setCommand('');
 
-    // Simulate response
-    setTimeout(() => {
-      setLogs(prev => [...prev, { type: 'INFO', time: new Date().toLocaleTimeString(), message: `Command executed: ${command}` }]);
-    }, 500);
+    try {
+      const res = await instanceApi.rcon(id, currentCmd);
+      if (res.result) {
+        setLogs(prev => [...prev.slice(-999), { type: 'INFO', time: new Date().toLocaleTimeString(), message: res.result }]);
+      } else {
+        setLogs(prev => [...prev.slice(-999), { type: 'INFO', time: new Date().toLocaleTimeString(), message: 'Ok.' }]);
+      }
+    } catch (err: any) {
+      setLogs(prev => [...prev.slice(-999), { type: 'ERROR', time: new Date().toLocaleTimeString(), message: err.message || 'RCON Failed' }]);
+    }
   };
 
   return (
@@ -96,8 +103,8 @@ export default function Console() {
             <span className="text-xs text-gray-500 ml-2">valheim_server.x86_64</span>
           </div>
           <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border ${wsStatus === 'connected' ? 'bg-green-500/10 text-green-400 border-green-500/20 shadow-[0_0_10px_rgba(34,197,94,0.1)] animate-pulse' :
-              wsStatus === 'reconnecting' ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20 animate-pulse' :
-                'bg-gray-500/10 text-gray-400 border-gray-500/20'
+            wsStatus === 'reconnecting' ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20 animate-pulse' :
+              'bg-gray-500/10 text-gray-400 border-gray-500/20'
             }`}>
             WS: {wsStatus}
           </span>
@@ -108,8 +115,8 @@ export default function Console() {
             <div key={i} className="flex gap-3 hover:bg-white/5 p-0.5 rounded px-2 transition-colors">
               <span className="text-gray-600 shrink-0">[{log.time}]</span>
               <span className={`shrink-0 font-bold w-16 ${log.type === 'INFO' ? 'text-green-400' :
-                  log.type === 'WARN' ? 'text-yellow-400' :
-                    log.type === 'ERROR' ? 'text-red-400' : 'text-blue-400'
+                log.type === 'WARN' ? 'text-yellow-400' :
+                  log.type === 'ERROR' ? 'text-red-400' : 'text-blue-400'
                 }`}>
                 [{log.type}]
               </span>

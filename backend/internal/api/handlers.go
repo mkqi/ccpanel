@@ -49,6 +49,7 @@ func SetupRouter(cfg *config.Config) *gin.Engine {
 		api.POST("/instances/:id/stop", stopInstance)
 		api.POST("/instances/:id/restart", restartInstance)
 		api.POST("/instances/:id/kill", killInstance)
+		api.POST("/instances/:id/rcon", sendRconCommand)
 		api.POST("/instances/:id/logs/start", streamLogsStart)
 		api.POST("/instances/:id/logs/stop", streamLogsStop)
 
@@ -411,6 +412,60 @@ func streamLogsStop(c *gin.Context) {
 	id := c.Param("id")
 	sendActionToAgent(id, ccpanel.BackendCommand_STREAM_LOGS_STOP)
 	c.JSON(200, gin.H{"message": "log streaming stopped"})
+}
+
+func sendRconCommand(c *gin.Context) {
+	instanceID := c.Param("id")
+	var req struct {
+		Command string `json:"command" binding:"required"`
+	}
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	var nid, token string
+	var rconPort int
+	var rconPass sql.NullString
+	err := db.DB.QueryRow(`
+		SELECT i.node_id, n.token, i.rcon_port, i.rcon_password
+		FROM instances i
+		JOIN nodes n ON i.node_id = n.id
+		WHERE i.id=?`, instanceID).Scan(&nid, &token, &rconPort, &rconPass)
+
+	if err != nil || token == "" {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "instance or node not found"})
+		return
+	}
+
+	if rconPort == 0 || !rconPass.Valid || rconPass.String == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "RCON is not configured for this instance"})
+		return
+	}
+
+	cmd := &ccpanel.BackendCommand{
+		CommandId: uuid.New().String(),
+		Command:   ccpanel.BackendCommand_RCON,
+		Payload:   req.Command,
+		Config: &ccpanel.InstanceConfig{
+			InstanceId:   instanceID,
+			RconPort:     int32(rconPort),
+			RconPassword: rconPass.String,
+		},
+	}
+
+	ack, err := importGrpc.GetServer().WaitForResult(token, cmd, 10*time.Second)
+	if err != nil {
+		c.JSON(http.StatusGatewayTimeout, gin.H{"error": "RCON command timed out: " + err.Error()})
+		return
+	}
+
+	if !ack.Success {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "RCON command failed", "detail": ack.Error})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Command executed", "result": ack.Result})
 }
 
 func sendActionToAgent(instanceID string, cmdType ccpanel.BackendCommand_CommandType) {

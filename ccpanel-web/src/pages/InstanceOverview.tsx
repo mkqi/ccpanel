@@ -4,6 +4,8 @@ import { motion } from 'motion/react';
 import { useParams } from 'react-router-dom';
 import { useDataStore } from '../stores/dataStore';
 
+import { instanceApi } from '../lib/api';
+
 export default function InstanceOverview() {
   const { id } = useParams();
   const { instances, nodes } = useDataStore();
@@ -23,7 +25,7 @@ export default function InstanceOverview() {
     // Could add a toast here
   };
 
-  const connectAddr = instance.connect_address || `${node?.address || 'NodeIP'}:${instance.game_port}`;
+  const connectAddr = instance.connect_address || `${node?.address || 'NodeIP'}:${instance.game_port} `;
 
   return (
     <div className="space-y-6">
@@ -181,11 +183,51 @@ export default function InstanceOverview() {
           </div>
         </div>
 
-        {/* Placeholder for future specific feature (e.g. World Map Preview) */}
-        <div className="bg-deep-sea/30 border border-dashed border-white/5 rounded-xl p-6 flex flex-col items-center justify-center text-center">
-          <Map className="w-12 h-12 text-gray-700 mb-4" />
-          <h4 className="text-sm font-bold text-gray-500 uppercase tracking-widest">World Map Preview</h4>
-          <p className="text-xs text-gray-600 mt-2">Coming in Phase 2</p>
+        {/* Quick Command */}
+        <div className="bg-deep-sea/30 border border-white/5 rounded-xl p-6 flex flex-col">
+          <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+            <Terminal className="w-5 h-5 text-green-400" />
+            Quick Command
+          </h3>
+          <p className="text-xs text-gray-500 mb-6">Dispatch RCON instructions directly to the instance.</p>
+
+          <div className="mt-auto space-y-3">
+            <form
+              className="flex gap-2"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const input = form.elements.namedItem('command') as HTMLInputElement;
+                const val = input.value.trim();
+                if (!val || !id) return;
+
+                try {
+                  input.disabled = true;
+                  const res = await instanceApi.rcon(id, val);
+                  alert(`Success: ${res?.result || 'Command sent'} `);
+                  input.value = '';
+                } catch (err: any) {
+                  alert(`Failed: ${err.message} `);
+                } finally {
+                  input.disabled = false;
+                  input.focus();
+                }
+              }}
+            >
+              <input
+                type="text"
+                name="command"
+                placeholder="e.g. /save, /kick <player>"
+                className="flex-1 bg-black/40 border border-white/10 rounded-lg px-4 py-2 text-white font-mono text-sm focus:outline-none focus:border-viking-gold/50 transition-colors"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 bg-viking-gold/10 text-viking-gold border border-viking-gold/20 hover:bg-viking-gold/20 rounded-lg transition-all font-bold text-sm"
+              >
+                Send
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

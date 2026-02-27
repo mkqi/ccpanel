@@ -5,7 +5,7 @@ Complete the "Phase 2" implementation by bringing functionality to the empty UI 
 
 ## 📋 Task Breakdown
 
-### 1. Unified Console & RCON Invocation
+### 1. Unified Console & RCON Invocation (✅ DONE)
 - **Backend**: Expose a REST API or gRPC bridge to accept raw text strings (e.g., `save`, `kick <player>`).
 - **Agent**: Forward these strings through the RCON TCP connection on the assigned Docker instance. Provide a robust timeout in case the game loop is frozen.
 - **Frontend**: Connect the "Quick Command" text input and the `Terminal` component to this new system, streaming the responses back up via the `logs` WebSocket.
@@ -26,7 +26,7 @@ Complete the "Phase 2" implementation by bringing functionality to the empty UI 
 - **Frontend**: Activate the "Download Backup" button in the `Files` / `Backups` Tab so admins can manually save historical milestones or pull the `.fwl`/`.db` chunks to their local machines.
 
 ## ✅ Verification Criteria
-- [ ] Typing `/save` into the Dashboard UI results in a verified RCON "World saved" echo.
+- [x] Typing `/save` into the Dashboard UI results in a verified RCON "World saved" echo.
 - [ ] Changing basic server modifiers triggers an automatic reboot, and the new settings are correctly reflected inside the game.
 - [ ] Real-time player arrays populate the "Active Players" graphic automatically upon game entry.
 - [ ] A generated Backup is verified valid via `tar -tzf archive.tar.gz`.

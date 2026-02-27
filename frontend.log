@@ -324,3 +324,58 @@ Error: connect ECONNREFUSED 127.0.0.1:8080
 9:12:17 AM [vite] (client) hmr update /src/index.css, /src/pages/InstanceHub.tsx, /src/App.tsx, /src/pages/Dashboard.tsx, /src/pages/NodeManagement.tsx, /src/pages/InstanceOverview.tsx
 9:51:57 AM [vite] (client) page reload index.html
 9:52:39 AM [vite] (client) hmr update /src/components/Layout.tsx, /src/index.css
+10:02:56 AM [vite] (client) hmr update /src/App.tsx, /src/index.css, /src/pages/Login.tsx, /src/components/Layout.tsx, /src/pages/InstanceHub.tsx, /src/pages/Console.tsx, /src/components/AddInstanceModal.tsx, /src/pages/AuditLogs.tsx
+10:03:43 AM [vite] (client) hmr update /src/pages/Console.tsx, /src/index.css
+10:04:20 AM [vite] (client) hmr update /src/pages/Console.tsx, /src/index.css
+10:04:50 AM [vite] (client) hmr update /src/pages/InstanceOverview.tsx, /src/index.css
+10:06:23 AM [vite] (client) hmr update /src/pages/InstanceOverview.tsx, /src/index.css
+10:06:23 AM [vite] Internal server error: /home/vagrant/ccpanel/ccpanel-web/src/pages/InstanceOverview.tsx: Missing semicolon. (29:51)
+
+  27 |   };
+  28 |
+> 29 |   const connectAddr = instance.connect_address || `${ node?.address || 'NodeIP' }:${ instance.game_port } `;
+     |                                                    ^
+  30 |
+  31 |   return (
+  32 |     <div className="space-y-6">
+  Plugin: vite:react-babel
+  File: /home/vagrant/ccpanel/ccpanel-web/src/pages/InstanceOverview.tsx:29:51
+  27 |    };
+  28 |  
+  29 |    const connectAddr = instance.connect_address || `${ node?.address || 'NodeIP' }:${ instance.game_port } `;
+     |                                                     ^
+  30 |  
+  31 |    return (
+      at constructor (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:365:19)
+      at TypeScriptParserMixin.raise (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:6599:19)
+      at TypeScriptParserMixin.semicolon (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:6895:10)
+      at TypeScriptParserMixin.parseExpressionStatement (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13285:10)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12899:19)
+      at TypeScriptParserMixin.parseStatementContent (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:9508:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12767:17)
+      at TypeScriptParserMixin.parseModuleItem (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12744:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13316:36)
+      at TypeScriptParserMixin.parseBlockBody (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:13309:10)
+      at TypeScriptParserMixin.parseProgram (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12622:10)
+      at TypeScriptParserMixin.parseTopLevel (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:12612:25)
+      at TypeScriptParserMixin.parse (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:14488:25)
+      at TypeScriptParserMixin.parse (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:10126:18)
+      at parse (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/parser/lib/index.js:14522:38)
+      at parser (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/parser/index.js:41:34)
+      at parser.next (<anonymous>)
+      at normalizeFile (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+      at normalizeFile.next (<anonymous>)
+      at run (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/transformation/index.js:22:50)
+      at run.next (<anonymous>)
+      at transform (/home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/transform.js:22:33)
+      at transform.next (<anonymous>)
+      at step (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:261:32)
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:223:11)
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:189:28
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/@babel/core/lib/gensync-utils/async.js:67:7
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:113:33
+      at step (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:287:14)
+      at /home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/home/vagrant/ccpanel/ccpanel-web/node_modules/gensync/index.js:223:11)
+10:06:37 AM [vite] (client) hmr update /src/pages/InstanceOverview.tsx, /src/index.css

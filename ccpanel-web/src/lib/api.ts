@@ -201,6 +201,7 @@ export const instanceApi = {
     stop: (id: string) => api.post(`/api/v1/instances/${id}/stop`),
     restart: (id: string) => api.post(`/api/v1/instances/${id}/restart`),
     kill: (id: string) => api.post(`/api/v1/instances/${id}/kill`),
+    rcon: (id: string, command: string) => api.post<{ message: string, result: string }>(`/api/v1/instances/${id}/rcon`, { command }),
     startLogs: (id: string) => api.post(`/api/v1/instances/${id}/logs/start`),
     stopLogs: (id: string) => api.post(`/api/v1/instances/${id}/logs/stop`),
 };
