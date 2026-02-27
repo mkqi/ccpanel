@@ -1,36 +1,36 @@
-# Task: Advanced Features & Instance Deep Interaction
+# Task: Docker Instance Re-builder & Dynamic Configuration
 
 ## 🎯 Objective
-Complete the "Phase 2" implementation by bringing functionality to the empty UI placeholders currently present in `InstanceOverview` and `InstanceHub`. This involves plumbing the RCON tunnel, Dynamic Configuration, Player Polling, and Archive (Backup) generation systems all the way down to the Go Backend and Agent.
+Unlock the full potential of the `lloesche/valheim-server-docker` image by creating a robust **"Environment Rebuilder"** flow. Since advanced features like Backups, Updates, Crossplay, and Modifiers are all perfectly wrapped inside this base image via CLI arguments and ENVs, we simply need a mechanism to gracefully tear down an existing container and spin an identical one up with newly forged `env_vars`.
 
 ## 📋 Task Breakdown
 
-### 1. Unified Console & RCON Invocation (✅ DONE)
-- **Backend**: Expose a REST API or gRPC bridge to accept raw text strings (e.g., `save`, `kick <player>`).
-- **Agent**: Forward these strings through the RCON TCP connection on the assigned Docker instance. Provide a robust timeout in case the game loop is frozen.
-- **Frontend**: Connect the "Quick Command" text input and the `Terminal` component to this new system, streaming the responses back up via the `logs` WebSocket.
+### 1. The Environment Pipeline
+- **Frontend**: The `InstanceOverview.tsx` has a button titled `UPDATE INSTANCE CONFIG`. We must create a Slide-out Pane or settings grid where the admin can toggle Crossplay, adjust `MODIFIER_PRESET` (e.g. `hardcore`, `casual`), or change password/world name.
+- **Backend API**: The `PUT /api/v1/instances/:id` route handler must receive these preferences, compress them into `json`, update SQLite `env_vars`, and immediately queue an `UPDATE` command to the Agent.
+- **Database Mod**: Confirm `env_vars` is properly parsing as a JSON dump on the `instances` table.
 
-### 2. Live World Metadata & Dynamic Modification
-- **Frontend**: The `UPDATE INSTANCE CONFIG` button needs to open a dialog or directly alter the state of `MODIFIER_PRESET`, `WORLD_NAME`, etc.
-- **Backend**: Implement the `PUT /api/v1/instances/:id` route handler. Replace SQLite values and queue a `RESTART` command to the Agent.
-- **Agent**: Destroy the current container mapping and spawn a new one with the updated `ENV` variables parsed securely.
+### 2. The Agent Recreate Lifecycles (The Rebuilder)
+- **Agent Server**: When the Agent receives `ccpanel.BackendCommand_UPDATE`, it must:
+   1. Connect via RCON and issue a `/save` to guarantee zero data loss.
+   2. Stop the running Docker Container gracefully.
+   3. **Remove (`docker rm`)** the old container mapping.
+   4. Trigger `docker.CreateInstance` reusing the identical mapped volumes (`/config/worlds_local`, `/config/backups`, etc.), but injecting the newly requested Array of Environment Flags.
+   5. Call `StartInstance`.
+- **UI Feedback**: Present loading spinners or disable buttons until the gRPC channel acknowledges container rebuild success.
 
-### 3. Granular Online Player Feed
-- **Agent**: Spawn a persistent goroutine for each active (`running`) instance. Every 30-60 seconds, fire an RCON `listplayers` or A2S query.
-- **Backend / DB**: Collect this structured player payload (e.g., Name, Ping, SteamID) and emit it via the `full_sync` WebSocket message or push it to SQLite.
-- **Frontend**: Wire the existing `Active Players` card/donut chart to this real data, replacing the static `/ 10` mock limit.
-
-### 4. Direct Instance Backups (World Preservation)
-- **Agent**: Create a handler for archiving. Execute `tar -czvf` on the host mapping (e.g., `/home/ccpanel/data/instances/{id}/config/worlds_local`). 
-- **Backend**: Surface `POST /api/v1/instances/:id/backups` and `GET`/`DELETE` variants.
-- **Frontend**: Activate the "Download Backup" button in the `Files` / `Backups` Tab so admins can manually save historical milestones or pull the `.fwl`/`.db` chunks to their local machines.
+### 3. Rapid Feature Mapping (The Payoff)
+Once the Rebuilder is stable, simply wire up these frontend fields to automatically pass into the JSON update payload:
+- **World Backups**: `BACKUPS=true`, `BACKUPS_CRON=0 * * * *`, `BACKUPS_MAX_AGE=3`
+- **Crossplay**: `CROSSPLAY=true` (Also ensuring port `2458` UDP is opened locally on the Node).
+- **Public List**: `SERVER_PUBLIC=true`/`false`
+- **Valheim Plus Mod**: `VALHEIM_PLUS=true`
 
 ## ✅ Verification Criteria
-- [x] Typing `/save` into the Dashboard UI results in a verified RCON "World saved" echo.
-- [ ] Changing basic server modifiers triggers an automatic reboot, and the new settings are correctly reflected inside the game.
-- [ ] Real-time player arrays populate the "Active Players" graphic automatically upon game entry.
-- [ ] A generated Backup is verified valid via `tar -tzf archive.tar.gz`.
+- [ ] Altering a "Server Password" or "World Modifier" via the UI results in the Docker container fully dropping and re-launching from the Dashboard point of view.
+- [ ] Connecting via the game client verifies the new configuration (e.g. death penalty changed, or Mod active) without losing previous world data.
+- [ ] The `env_vars` DB column correctly tracks all non-default values across Master restarts.
 
 ## 📅 Timeline
-- **Start**: (Action Required)
-- **Status**: Ready for Implementation
+- **Start**: Next Development Session
+- **Status**: Prioritized & Ready for Work
